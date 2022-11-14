@@ -1,8 +1,36 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "_Landing";
+
+}
+@using Classroom.Mvc
+@using Microsoft.Extensions.Options
+@inject IOptions<AppSettings> options
+@{
+    var hostname = options.Value.Hostname;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="loader">
+    <div class="page-loader"></div>
 </div>
+    
+<img src="~/images/demo/shard-1-5x-3.png" alt="@hostname" class="shard">
+
+<div class="welcome d-flex justify-content-center flex-column">
+    <div class="inner-wrapper mt-auto mb-auto">
+        <h1 class="slide-in">@hostname</h1>
+        <p class="slide-in">Sinfingizda turli xil topshiriqlarni tashkillashtirish uchun bepul platforma.</p>
+        <div class="action-links slide-in">
+            <h5>Mualliflashtirish</h5>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-pill align-self-center mr-2">
+            <i class="fa fa-sign-in mr-1"></i> Kirish</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-light btn-pill align-self-center">
+            <i class="fa fa-user-plus mr-1"></i> Ro'yxatdan o'tish</a>
+        </div>
+    </div>
+    <div class="product-by">
+        <a href="#" target="_blank">
+        <p>Web ilova yaratuvchilari: </p> <a href="https://ilmhub.uz">Ilmhub IT School .NET Bootcamp #3 guruhi talabalari</a>
+        </a>
+    </div>
+    </div>

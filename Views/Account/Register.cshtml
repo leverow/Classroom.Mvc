@@ -1,0 +1,85 @@
+﻿@model RegisterUserViewModel
+@{
+    ViewData["Title"] = "Ro'yxatdan o'tish";
+}
+<div class="row justify-content-md-center">
+    <form asp-controller="Account" asp-action="Register" method="post" enctype="multipart/form-data" class="col-md-6" style="margin: 5px auto;">
+        @Html.HiddenFor(m => m.ReturnUrl)
+        @Html.ValidationSummary(true, string.Empty, new { Class = "text-yellow" }, "span")
+        <h3>@ViewData["Title"]</h3>
+        <div class="form-group">
+            <div class="input-group input-group-seamless">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fa fa-user"></i>
+                </span>
+            </span>
+            <input asp-for="FirstName" type="text" class="form-control" id="form1-username" placeholder="Ism">
+            </div>
+            <span asp-validation-for="FirstName" class="text-danger" style="font-size:12px"></span>
+            
+            <div class="input-group input-group-seamless mt-3">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fa fa-user"></i>
+                </span>
+            </span>
+            <input asp-for="LastName" type="text" class="form-control" id="form1-username" placeholder="Familya">
+            </div>
+            <span asp-validation-for="LastName" class="text-danger" style="font-size:12px"></span>
+            
+            <div class="input-group input-group-seamless mt-3">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fa fa-user"></i>
+                </span>
+            </span>
+            <input asp-for="UserName" type="text" class="form-control" id="form1-username" placeholder="Login">
+            </div>
+            <span asp-validation-for="UserName" class="text-danger" style="font-size:12px"></span>
+            
+            <div class="input-group input-group-seamless mt-3">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fa fa-lock"></i>
+                </span>
+            </span>
+            <input asp-for="Password" type="password" class="form-control" id="form2-password" placeholder="Parol">
+            </div>
+            <span asp-validation-for="Password" class="text-danger" style="font-size:12px"></span>
+
+            <div class="input-group input-group-seamless mt-3">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fa fa-lock"></i>
+                </span>
+            </span>
+            <input asp-for="ConfirmPassword" type="password" class="form-control" id="form2-password" placeholder="Parolni tasdiqlash">
+            </div>
+            <span asp-validation-for="ConfirmPassword" class="text-danger" style="font-size:12px"></span>
+            
+            <div class="input-group input-group-seamless mt-3">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fa fa-envelope-open-o"></i>
+                </span>
+            </span>
+            <input asp-for="Email" type="email" class="form-control" id="form2-password" placeholder="Email">
+            </div>
+            <span asp-validation-for="Email" class="text-danger" style="font-size:12px"></span>
+
+            <div class="input-group input-group-seamless mt-3">
+                <span class="input-group-prepend">
+                    <span class="input-group-text">
+                    <i class="fa fa-file"></i>
+                    </span>
+                </span>
+                <input id="userImage" type="file" accept="image/*" asp-for="UserImage" class="custom-file-input">
+                <label class="custom-file-label" for="userImage">&nbsp &nbsp &nbsp Rasm tanlang...</label>
+                <span asp-validation-for="UserImage" class="text-danger"></span>
+            </div>
+        </div>
+        <button asp-controller="Account" asp-action="Register" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
+        <i class="fa fa-sign-in mr-1"></i> Sign Up</button>
+    </form>
+</div>
