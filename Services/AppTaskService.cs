@@ -30,8 +30,8 @@ public class AppTaskService : IAppTaskService
 
         try
         {
-            entity.CreatedDate = DateTimeOffset.Now.ToUnixTimeSeconds();
-            entity.StartDate = DateTimeOffset.Now.ToUnixTimeSeconds();
+            entity.CreatedDate = DateTime.UtcNow;
+            entity.StartDate = DateTime.UtcNow;
 
             var createdAppTask = await _unitOfWork.Tasks.AddAsync(entity);
             return new(true) { Data = createdAppTask.Adapt<Models.AppTask>() };
