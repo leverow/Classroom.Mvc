@@ -1,0 +1,72 @@
+﻿@model CreateTaskViewModel
+@{
+    ViewData["Title"] = "Vazifa yaratish";
+}
+<div class="row">
+    <div class="leverow-content">
+        <form asp-controller="Tasks" asp-action="Create" method="post" style="margin: 5px auto;">
+            @Html.ValidationSummary(true, string.Empty, new { Class = "text-yellow" }, "span")
+            <h3>@ViewData["Title"]</h3>
+            <div class="form-group">
+                <div class="input-group input-group-seamless">
+                <span class="input-group-prepend">
+                    <span class="input-group-text">
+                    <i class="fa fa-tasks"></i>
+                    </span>
+                </span>
+                <input asp-for="Title" type="text" class="form-control" id="form1-title" placeholder="Vazifa nomlanishi">
+                </div>
+                <span asp-validation-for="Title" class="text-danger" style="font-size:12px"></span>
+            
+                <div class="input-group input-group-seamless mt-3">
+                <span class="input-group-prepend">
+                    <span class="input-group-text">
+                    <i class="fa fa-tasks"></i>
+                    </span>
+                </span>
+                <input asp-for="Description" type="text" class="form-control" id="form2-description" placeholder="Vazifa haqida">
+                </div>
+                <span asp-validation-for="Description" class="text-danger" style="font-size:12px"></span>
+
+                <div class="input-group input-group-seamless mt-3">
+                <span class="input-group-prepend">
+                    <span class="input-group-text">
+                    <i class="fa fa-link"></i>
+                    </span>
+                </span>
+                <input asp-for="Url" type="text" class="form-control" id="form2-description" placeholder="Qo'shimcha link">
+                </div>
+                <span asp-validation-for="Url" class="text-danger" style="font-size:12px"></span>
+
+                <div class="input-group input-group-seamless mt-3">
+                <span class="input-group-prepend">
+                    <span class="input-group-text">
+                    <i class="fa fa-line-chart"></i>
+                    </span>
+                </span>
+                <input asp-for="MaxScore" type="number" maxlength="3" min="1" max="100"class="form-control" id="form2-description" placeholder="Maksimal ball">
+                </div>
+                <span asp-validation-for="MaxScore" class="text-danger" style="font-size:12px"></span>
+
+                <div class="input-daterange input-group mt-3" id="datepicker-example-2">
+                  <span class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fa fa-calendar-check-o"></i>
+                    </span>
+                  </span>
+                  <input type="text" class="input-sm form-control" asp-for="StartDate" placeholder="Boshlanish sanasi">
+                  <span class="input-group-middle"><span class="input-group-text">-</span></span>
+                  <input type="text" class="input-sm form-control" asp-for="EndDate" placeholder="Tugash sanasi">
+                  <span class="input-group-append">
+                    <span class="input-group-text">
+                      <i class="fa fa-calendar-times-o"></i>
+                    </span>
+                  </span>
+                </div>
+
+            </div>
+            <button asp-controller="Tasks" asp-action="Create" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
+            <i class="fa fa-sign-in mr-1"></i> Yaratish</button>
+        </form>
+    </div>
+</div>

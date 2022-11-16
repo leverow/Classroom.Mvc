@@ -5,10 +5,9 @@
 <div class="row">
     <div class="leverow-content">
         
-            @if(Model.UserCourse is null)
+            @if(Model.UserCourse.Count == 0)
             {
                 <h4 class="text-warning">Sizda hali hech qanday kurslar mavjud emas.</h4><br />
-                <a class="btn btn-primary" asp-controller="Course" asp-action="Create">Kurs yaratish</a>
             }
             else
             {
@@ -19,7 +18,7 @@
                     var course = Model.UserCourse[i].Course!;
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <div class="card">
-                            <img class="card-img-top" src="~/images/demo/stock-photos/1.jpg" alt="Card image cap">
+                            <img class="card-img-top" src='@Url.Action("GetCourseBanner", "Course", new { type = course.ImageType})' alt="Card image cap">
                             <div class="card-body">
                                 <h4 class="card-title">@course.Name</h4>
                                 <p class="card-text">@course.Description</p>

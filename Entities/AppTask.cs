@@ -6,9 +6,9 @@ public class AppTask
 {
     public Guid Id { get; set; }
     
-    public Guid ScienceId { get; set; }
-    [ForeignKey("ScienceId")]
-    public virtual Course? Science { get; set; }
+    public Guid CourseId { get; set; }
+    [ForeignKey("CourseId")]
+    public virtual Course? Course { get; set; }
 
     public uint Status { get; set; }
     public string? Description { get; set; }

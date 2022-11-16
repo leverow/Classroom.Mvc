@@ -6,7 +6,6 @@ namespace Classroom.Mvc.Data;
 
 public class AppDbContext : IdentityDbContext<AppUser, AppUserRole, Guid>
 {
-    public DbSet<School>? Schools { get; set; }
     public DbSet<Course>? Courses { get; set; }
     public DbSet<UserCourse>? UserCourses { get; set; }
     public DbSet<AppTask>? Tasks { get; set; }
@@ -30,13 +29,6 @@ public class AppDbContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             .HasOne(uc => uc.Course)
             .WithMany(c => c.UserCourses)
             .HasForeignKey(uc => uc.CourseId);
-
-        builder.Entity<School>().HasData(new School()
-        {
-            Id = Guid.NewGuid(),
-            Name = "80-maktab",
-            Description = "Some description"
-        }); ;
 
         List<string> roleNames = new() {"Admin","Teacher","Student"};
         

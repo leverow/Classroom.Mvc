@@ -311,3 +311,16 @@
 }
 
 /*# sourceMappingURL=shards.min.css.map */
+
+.user-info
+{
+	border-radius: 15px;
+}
+.user-info a
+{
+	color : #545a60;font-weight: 500;
+}
+.user-info a:hover
+{
+	text-decoration: none;
+}

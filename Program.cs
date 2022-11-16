@@ -32,7 +32,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("WebsiteOptions"));
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-builder.Services.AddTransient<ISchoolService, SchoolService>();
 builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<IAppTaskService, AppTaskService>();
 

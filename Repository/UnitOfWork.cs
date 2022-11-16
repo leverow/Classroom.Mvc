@@ -9,7 +9,6 @@ public class UnitOfWork : IUnitOfWork
     public IAppTaskRepository Tasks { get; }
     public IUserTaskRepository UserTasks { get; }
     public IUserTaskCommentRepository UserTasksComments { get; }
-    public ISchoolRepository Schools { get; }
     public ICourseRepository Courses { get; }
     public IUserCourseRepository UserCourses { get; }
     
@@ -19,7 +18,6 @@ public class UnitOfWork : IUnitOfWork
         Tasks = new AppTaskRepository(context);
         UserTasks = new UserTaskRepository(context);
         UserTasksComments = new UserTaskCommentRepository(context);
-        Schools = new SchoolRepository(context);
         Courses = new CourseRepository(context);
         UserCourses = new UserCourseRepository(context);
     }
