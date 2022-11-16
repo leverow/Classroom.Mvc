@@ -1,0 +1,34 @@
+﻿@model CreateCourseViewModel
+@{
+    ViewData["Title"] = "Kurs yaratish";
+}
+<div class="row">
+    <form asp-controller="Course" asp-action="Create" method="post" class="col-md-6" style="margin: 5px auto;">
+        @Html.ValidationSummary(true, string.Empty, new { Class = "text-yellow" }, "span")
+        <h3>@ViewData["Title"]</h3>
+        <div class="form-group">
+            <div class="input-group input-group-seamless">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fa fa-user"></i>
+                </span>
+            </span>
+            <input asp-for="Name" type="text" class="form-control" id="form1-name" placeholder="Kurs nomi">
+            </div>
+            <span asp-validation-for="Name" class="text-danger" style="font-size:12px"></span>
+            
+            <div class="input-group input-group-seamless mt-3">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fa fa-lock"></i>
+                </span>
+            </span>
+            <input asp-for="Description" type="text" class="form-control" id="form2-description" placeholder="Kurs haqida">
+            </div>
+            <span asp-validation-for="Description" class="text-danger" style="font-size:12px"></span>
+
+        </div>
+        <button asp-controller="Course" asp-action="Create" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
+        <i class="fa fa-sign-in mr-1"></i> Yaratish</button>
+    </form>
+</div>

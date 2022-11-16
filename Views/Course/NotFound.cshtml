@@ -1,0 +1,16 @@
+﻿@model CourseMultipleViewModel
+
+<div class="row">
+    <div class="leverow-content" style="text-align:center">
+        @if(Model.IsInValidKey)
+        {
+            <h4 class="leverow-text-danger">Kurs topilmadi! <p style="font-size: 16px">Sabab: Kalit xato kiritildi!</p></h4>
+        }
+        @if(Model.IsAccessDenied)
+        {
+            <h4 class="leverow-text-danger">Ruxsat yo'q! <p style="font-size: 16px">Sabab: Siz kurs kalitini kiritmagansiz!</p></h4>
+        }
+        <img src="~/images/leverow/course_not_found.svg" style="width:400px" class="course-not-found" alt="Kurs topilmadi"/>
+        <partial name="_JoinCourseModal" />
+    </div>
+</div>

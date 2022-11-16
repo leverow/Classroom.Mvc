@@ -6,7 +6,7 @@ public interface IUnitOfWork : IDisposable
     IUserTaskRepository UserTasks { get; }
     IUserTaskCommentRepository UserTasksComments { get; }
     ISchoolRepository Schools { get; }
-    IScienceRepository Sciences { get; }
-    IUserScienceRepository UserSciences { get; }
+    ICourseRepository Courses { get; }
+    IUserCourseRepository UserCourses { get; }
     int Save();
 }

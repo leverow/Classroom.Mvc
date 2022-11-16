@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Kurs topilmadi";
+}
+<!-- Modals -->
+<div id="modals" class="container">
+    <div class="mb-5">
+        <!-- Trigger -->
+        <button type="button" class="btn btn-primary btn-pill btn-lg d-table ml-auto mr-auto" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-sign-in">&nbsp;</i> Kursga kirish
+        </button>
+
+        <!-- Modal Body -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">*️⃣ Kursga kirish</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="JoinCourse" method="post">
+                <div class="modal-body">
+                    @Html.ValidationSummary(true, string.Empty, new { Class = "text-danger" }, "span")
+                    <h1 class="mb-2 text-center">🔑</h1>
+                    Kurs kodini kiriting
+                    <strong>(uni o'qituvchidan olishingiz mumkin)</strong>.<br />
+                        <div class="row">
+                            <div class="col-md-9" style="margin: 15px auto 0 auto;">
+                            <input type="text" name="key" class="form-control" id="form1-key" placeholder="Kurs kodi" required>
+                        </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" style="width: 100%;">Kirish</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

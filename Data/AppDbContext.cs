@@ -7,8 +7,8 @@ namespace Classroom.Mvc.Data;
 public class AppDbContext : IdentityDbContext<AppUser, AppUserRole, Guid>
 {
     public DbSet<School>? Schools { get; set; }
-    public DbSet<Science>? Sciences { get; set; }
-    public DbSet<UserScience>? UserSciences { get; set; }
+    public DbSet<Course>? Courses { get; set; }
+    public DbSet<UserCourse>? UserCourses { get; set; }
     public DbSet<AppTask>? Tasks { get; set; }
     public DbSet<UserTask>? UserTasks { get; set; }
     public DbSet<UserTaskComment>? UserTaskComments { get; set; }
@@ -18,7 +18,26 @@ public class AppDbContext : IdentityDbContext<AppUser, AppUserRole, Guid>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        
+
+        //Fluent Api Configuration [User and Course] Many to many relationship
+        builder.Entity<UserCourse>()
+            .HasKey(uc => new { uc.UserId, uc.CourseId });
+        builder.Entity<UserCourse>()
+            .HasOne(uc => uc.User)
+            .WithMany(b => b.UserCourses)
+            .HasForeignKey(uc => uc.UserId);
+        builder.Entity<UserCourse>()
+            .HasOne(uc => uc.Course)
+            .WithMany(c => c.UserCourses)
+            .HasForeignKey(uc => uc.CourseId);
+
+        builder.Entity<School>().HasData(new School()
+        {
+            Id = Guid.NewGuid(),
+            Name = "80-maktab",
+            Description = "Some description"
+        }); ;
+
         List<string> roleNames = new() {"Admin","Teacher","Student"};
         
         foreach(var roleName in roleNames)

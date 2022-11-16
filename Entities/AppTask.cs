@@ -8,7 +8,7 @@ public class AppTask
     
     public Guid ScienceId { get; set; }
     [ForeignKey("ScienceId")]
-    public virtual Science? Science { get; set; }
+    public virtual Course? Science { get; set; }
 
     public uint Status { get; set; }
     public string? Description { get; set; }

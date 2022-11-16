@@ -1,0 +1,88 @@
+﻿@model Classroom.Mvc.Entities.Course
+@if(Model is null)
+{
+    <p>Kurs topilmadi.</p>
+}
+else
+{
+
+    <div jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b;JIbuQc:Fmspve(Q7N4Oc);KAD0te:O99HCf" jscontroller="KHqDY" jsmodel="hb3e8b" class="v9TZ3c bFjUmb-Tvm9db" id="ow124" __is_owner="true">
+        <div class="qyN25">
+            <div class="PFLqgc PagUde" style="background-image: url('@Url.Action("GetCourseBanner", "Course", new { type = Model.ImageType})');"><div class="VVnuU ra2NV ee1HBc"></div></div>
+            <div class="T4tcpe PagUde">
+                <h1 class="tNGpbb YrFhrf-ZoZQ1 YVvGBb">@Model.Name</h1>
+                <div class="qFmcrc z3vRcc-ZoZQ1 YVvGBb">@Model.Description</div>
+            </div>
+        </div>
+    </div>
+    @*--------------*@
+    <div class="M7zXZd">
+        <aside role="complementary" class="DXLeqd">
+            <div class="CG2qQ dsW6Nd">
+                <div jscontroller="UqV0cb" jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b">
+                    <div jscontroller="RO1Frf" jsaction="rcuQ6b:rcuQ6b;rKHbQd:r2JIKb;HGIkz:VlevBc;uwjiC:rcuQ6b;JIbuQc:RYcsse(BIFOEb)" class="d4Fe0d LBlAUc NA2Gt" style="display: none;" id="ow113" __is_owner="true">
+                        <div class="NGVAIb QRiHXd"><img src="https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v6/web-48dp/logo_meet_2020q4_color_1x_web_48dp.png" alt="" aria-hidden="true" class="RponAc" data-iml="8807"><span class="asQXV">Meet</span>
+                            <div class="fPqOAb"></div>
+                            <div jsshadow="" role="button" class="U26fgb JRtysb WzwrXb I12f0b K2mXPb oxacD" jscontroller="iSvg6e" jsaction="click:cOuCgd; mousedown:UX7yZ; mouseup:lbsD7e; mouseenter:tfO1Yc; mouseleave:JywGue; focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef;touchstart:p6p2H; touchmove:FwuNnf; touchend:yfqBxc(preventMouseEvents=true|preventDefault=true); touchcancel:JMtRjd;keydown:I481le"
+                                aria-label="Настройки ссылки на видеовстречу в Meet" aria-disabled="false" tabindex="0" aria-haspopup="true" aria-expanded="false" data-alignright="true">
+                                <div class="NWlf3e MbhUzd" jsname="ksKsZd"></div><span jsslot="" class="MhXXcc oJeWuf"><span class="Lw7GHd snByac"><svg focusable="false" width="24" height="24" viewBox="0 0 24 24" class=" NMm5M"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></span>
+                                <div
+                                    jsname="xl07Ob" style="display: none;" aria-hidden="true">
+                                    <div role="menu" tabindex="0" class="JPdR6b hVNH5c" jscontroller="uY3Nvd" jsaction="IpSVtb:TvD9Pc;fEN2Ze:xzS4ub;frq95c:LNeFm;cFpp9e:J9oOtd; click:H8nU8b; mouseup:H8nU8b; keydown:I481le; keypress:Kr2w4b; blur:O22p3e; focus:H8nU8b">
+                                        <div class="XvhY1d" jsaction="mousedown:p8EH2c; touchstart:p8EH2c">
+                                            <div class="JAPqpe K0NPx"></div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div jscontroller="UqV0cb">
+                <div jscontroller="amDIpd" class="d4Fe0d LBlAUc JwUfNc">
+                    <div class="QRiHXd"><span class="asQXV">🔑 Kurs kaliti</span>
+                        
+                </div>
+                <div class="Y5vSD QRiHXd">
+                    <div class="VnOHwf-Tvm9db z3vRcc oZ63bb">@Model.SecurityKey</div>
+                </div>
+                </div>
+            </div>
+    <div class="d4Fe0d LBlAUc ">
+        <div class="WMQb5e" jsmodel="hCpsVc">
+            <h2 class="EZrbnd sxa9Pc" style="font-weight: bold">Kurs ma'lumotlari</h2>
+            <div jscontroller="sxyRaf" jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b;GjA5Zb:rcuQ6b">
+                <div class="lziZub sdDCme"><span class="Y5vSD">Kurs muallifi: @Model.User?.UserName <br> Yaratilgan sana: @Model.CreatedAt.ToString("MM/dd/yyyy") <br /></span></div>
+                <div class="CHJgKd">
+                    <div class="VfPpkd-dgl2Hf-ppHlrf-sM5MNb" data-is-touch-wrapper="true">
+                        <div class="VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-dgl2Hf ksBjEc lKxP2d LQeN7 uBUej n42Gr" jscontroller="nKuFpb" jsaction="click:cOuCgd; mousedown:UX7yZ; mouseup:lbsD7e; mouseenter:tfO1Yc; mouseleave:JywGue; touchstart:p6p2H; touchmove:FwuNnf; touchend:yfqBxc; touchcancel:JMtRjd; focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef;mlnRJb:fLiPzd"
+                            data-idom-class="ksBjEc lKxP2d LQeN7 uBUej n42Gr">
+                            <div class="VfPpkd-Jh9lGc"></div>
+                            <div class="VfPpkd-J1Ukfc-LhBDec"></div><span jsname="V67aGc" class="VfPpkd-vQzf8d" aria-hidden="true">Посмотреть всё</span><a jsname="hSRGPd" class="WpHeLc VfPpkd-mRLv6 VfPpkd-RLmnJb" href="/u/0/ta/not-reviewed/NTcxMDA4NDk0NTk0" aria-label="Просмотреть все задания"></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </aside>
+    <main class="Sgw65b kdAl3b" jsmodel="uJydvc;I8BbUd;UvJ3Mb;" tabindex="-1" role="main">
+        <div jsmodel="NYdJ9b" data-include-stream-item-materials="false" data-stream-item-types="3" data-list-type="5" data-active-filter="1" data-load-all-pages="true">
+            <div jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b;oquPK:rcuQ6b;o2F6Cf:if3DMb" jscontroller="s2wDwf"></div>
+        </div>
+        <section guidedhelpid="streamContentGH" role="section" jsmodel="NYdJ9b" data-include-stream-item-materials="false" data-list-type="3" data-active-filter="2" data-load-all-pages="false">
+            <div jsaction="rcuQ6b:BU4fHd;HO6t5b:BU4fHd;oquPK:E3Ktff;uwjiC:E3Ktff,rcuQ6b;wJx4ze:rcuQ6b;gbLJWc:ZLWxKf;JIbuQc:fyRA7e(idVoDf)" jscontroller="yidvwe" id="ow81" __is_owner="true">
+                
+            <div class="Aopndd MdjMac">
+                <img src="~/images//leverow/task_add.svg" alt="Blank" width="300">
+                <div>
+                    <p class="VnOHwf-Tvm9db z3vRcc aQkHxe">Hozircha kursda hech qanday vazifalar yo'q</p>
+                    <p class="asQXV">Lentaga o'z vazifangizni qo'shishingiz mumkin.</p>
+                </div>
+            </div>
+            </div>
+        </section>
+        <div jscontroller="qkFKAf" jsmodel="qjXhl" jsaction="rcuQ6b:ZiN7ye"></div>
+    </main>
+    </div>
+}

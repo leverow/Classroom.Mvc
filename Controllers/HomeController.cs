@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Classroom.Mvc.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace Classroom.Mvc.Controllers;
 
@@ -13,6 +14,7 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [EnableCors("Production")]
     public IActionResult Index()
     {
         return View();

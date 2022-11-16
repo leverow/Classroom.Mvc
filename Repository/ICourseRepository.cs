@@ -2,4 +2,4 @@
 
 namespace Classroom.Mvc.Repository;
 
-public interface IScienceRepository : IGenericRepository<Science> { }
+public interface ICourseRepository : IGenericRepository<Course> { }

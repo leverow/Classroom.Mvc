@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Maktablar ro'yxati";
+}
+@model List<School>
+
+<div class="row justify-content-md-center pt-4">
+    <div class="col-6">
+        <h2 class="text-primary">Book List</h2>
+	</div>
+    <div class="col-6 text-end" style="display: flex;justify-content: right;height:100%;">
+        <a asp-controller="School" asp-action="AddSchool" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> &nbsp; Add new school
+		</a>
+	</div>
+</div>
+<br />
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                №
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td width="10%">
+                    @(i+1)
+                </td>
+                <td width="30%">
+                    @Model[i].Name
+                </td>
+                <td width="10%">
+                    @Model[i].Description
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

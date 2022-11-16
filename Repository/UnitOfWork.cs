@@ -10,8 +10,8 @@ public class UnitOfWork : IUnitOfWork
     public IUserTaskRepository UserTasks { get; }
     public IUserTaskCommentRepository UserTasksComments { get; }
     public ISchoolRepository Schools { get; }
-    public IScienceRepository Sciences { get; }
-    public IUserScienceRepository UserSciences { get; }
+    public ICourseRepository Courses { get; }
+    public IUserCourseRepository UserCourses { get; }
     
     public UnitOfWork(AppDbContext context)
     {
@@ -20,8 +20,8 @@ public class UnitOfWork : IUnitOfWork
         UserTasks = new UserTaskRepository(context);
         UserTasksComments = new UserTaskCommentRepository(context);
         Schools = new SchoolRepository(context);
-        Sciences = new ScienceRepository(context);
-        UserSciences = new UserScienceRepository(context);
+        Courses = new CourseRepository(context);
+        UserCourses = new UserCourseRepository(context);
     }
 
     public void Dispose()

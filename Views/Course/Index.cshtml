@@ -1,0 +1,35 @@
+﻿@model CourseMultipleViewModel
+@{
+    ViewData["Title"] = "Kurslar";
+}
+<div class="row">
+    <div class="leverow-content">
+        
+            @if(Model.UserCourse is null)
+            {
+                <h4 class="text-warning">Sizda hali hech qanday kurslar mavjud emas.</h4><br />
+                <a class="btn btn-primary" asp-controller="Course" asp-action="Create">Kurs yaratish</a>
+            }
+            else
+            {
+                <h3 class="text-primary">Kurslar ro'yxati</h3><br>
+                <div class="leverow-courses-list">
+                @for(var i = 0; i < Model.UserCourse.Count; i++)
+                {
+                    var course = Model.UserCourse[i].Course!;
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <div class="card">
+                            <img class="card-img-top" src="~/images/demo/stock-photos/1.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">@course.Name</h4>
+                                <p class="card-text">@course.Description</p>
+                                <a asp-controller="Course" asp-action="id" asp-route-id="@course.Id" class="btn btn-primary">Kursga kirish</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+            }
+        <partial name="_JoinCourseModal" />
+    </div>
+</div>

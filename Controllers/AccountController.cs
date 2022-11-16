@@ -10,15 +10,18 @@ using Microsoft.AspNetCore.StaticFiles;
 namespace Classroom.Mvc.Controllers;
 public class AccountController : Controller
 {
+    private readonly ILogger<AccountController> _logger;
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly IUserManagementService _userManagement;
 
     public AccountController(
+        ILogger<AccountController> logger,
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
         IUserManagementService userManagement)
     {
+        _logger = logger;
         _userManager = userManager;
         _signInManager = signInManager;
         _userManagement = userManagement;

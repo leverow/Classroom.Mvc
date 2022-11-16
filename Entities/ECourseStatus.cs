@@ -1,6 +1,6 @@
 ﻿namespace Classroom.Mvc.Entities;
 
-public enum EScienceStatus
+public enum ECourseStatus
 {
     Created,
     Active,

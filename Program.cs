@@ -1,9 +1,12 @@
 using Classroom.Mvc;
 using Classroom.Mvc.Data;
 using Classroom.Mvc.Entities;
+using Classroom.Mvc.Middlewares;
 using Classroom.Mvc.Repository;
 using Classroom.Mvc.Services;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using TelegramSink;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,12 +33,32 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("Websit
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<ISchoolService, SchoolService>();
-builder.Services.AddTransient<IScienceService, ScienceService>();
+builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<IAppTaskService, AppTaskService>();
 
 builder.Services.AddScoped<IUserManagementService, UserManagementService>();
 
+var logger = new LoggerConfiguration()
+    .WriteTo.File(
+        path: "Exceptions.log",
+        fileSizeLimitBytes: 20,
+        rollingInterval: RollingInterval.Day,
+        restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Error)
+    .WriteTo.TeleSink("5754291260:AAEPhrb9cWA6p1QKHun4vfVbHjQPdJZEDX8", "-1001732303109", minimumLevel: Serilog.Events.LogEventLevel.Error)
+    .CreateLogger();
+
+builder.Logging.AddSerilog(logger);
+
+builder.Services.AddCors(options => {
+    options.AddPolicy("Production", cors =>
+    {
+        cors.WithOrigins("http://hello.com", "http://www.test.com");
+    });
+});
+
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -44,9 +67,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseCors("Production");
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -66,7 +66,9 @@
         else
         {
             <li class="nav-item">
-                <img src='@Url.Action("GetUserImage", "Account", new { name = User.Identity.Name })' alt="@User.Identity.Name" width="50" height="50">
+                <div class="avatar-mask">
+                    <img src='@Url.Action("GetUserImage", "Account", new { name = User.Identity.Name })' alt="@User.Identity.Name" width="50" height="50">
+                </div>
             </li>
             <li class="nav-item" style="list-style-type: none;">
                 <a class="nav-link text-dark">@User.Identity.Name</a>
