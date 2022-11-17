@@ -162,15 +162,6 @@
   flex-direction: column;
   padding-bottom: .5rem;
 }
-.QRiHXd {
-  align-items: center;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: row;
-}
 .asQXV {
   letter-spacing: .01785714em;
   font-family: "Google Sans",Roboto,Arial,sans-serif;
@@ -203,9 +194,6 @@
   margin-right: 1.5rem;
   padding: 1rem;
   width: 10.125rem;
-}
-.LBlAUc {
-  margin-bottom: 1.5rem;
 }
 .sxa9Pc {
   padding-bottom: 1rem;
@@ -263,6 +251,7 @@
   -moz-border-radius: 0.5rem;
   border-radius: 0.5rem;
   overflow: hidden;
+  margin-bottom: 1.5rem;
 }
 .ee1HBc.VnOHwf-Tvm9db, .ee1HBc .VnOHwf-Tvm9db, .ee1HBc.CNpREd.VnOHwf-Tvm9db, .ee1HBc.CNpREd .VnOHwf-Tvm9db {
   color: rgb(25,103,210);
@@ -276,14 +265,6 @@
   font-size: 1.375rem;
   font-weight: 400;
   line-height: 1.75rem;
-  color: #3c4043;
-}
-.asQXV {
-  letter-spacing: .01785714em;
-  font-family: "Google Sans",Roboto,Arial,sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.25rem;
   color: #3c4043;
 }
 
@@ -323,4 +304,101 @@
 .user-info a:hover
 {
 	text-decoration: none;
+}
+.leverow-course-tasks
+{
+	background-color : #00aaff;
+}
+.leverow-course-task
+{
+	padding: 10px;
+	background-color: black;
+}
+/*Course items*/
+.n4xnA {
+  padding: 0.5rem 0;
+}
+.DkDwHe {
+  cursor: pointer;
+}
+.JZicYb {
+  height: 3.5rem;
+  padding-right: 0.5rem;
+  white-space: nowrap;
+}
+.PazDv {
+  font-size: 0.0625rem;
+  height: 0.0625rem;
+  line-height: 1;
+  opacity: .001;
+  overflow: hidden;
+  position: absolute;
+  width: 0.0625rem;
+}
+/*Course item round icon*/
+.ee1HBc.bFjUmb-Wvd9Cc, .ee1HBc .bFjUmb-Wvd9Cc, .ee1HBc.CNpREd.bFjUmb-Wvd9Cc, .ee1HBc.CNpREd .bFjUmb-Wvd9Cc {
+  background-color: rgb(66,133,244);
+}
+.qJJSvb {
+  color: #fff;
+  cursor: default;
+  flex-shrink: 0;
+  height: 2.5rem;
+  line-height: 0;
+  margin: 0 1rem 0 1.5rem;
+  width: 2.5rem;
+}
+.m1PbN {
+  color: #fff;
+  fill: #fff;
+}
+.bxp7vf {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: #0087ff;
+  padding: 6px;
+  border-radius: 100%;
+}
+}
+.vUBwW {
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  color: rgba(255,255,255,.87);
+  flex-shrink: 0;
+  font-size: 1rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  width: 2rem;
+}
+/*End Course item round icon*/
+.GQW44b {
+  overflow: hidden;
+}
+.Nmpzvc {
+  -moz-box-flex: 1 0 1rem;
+  flex: 1 0 1rem;
+}
+.tLDEHd {
+  letter-spacing: .01428571em;
+  font-family: Roboto,Arial,sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  color: #3c4043;
+}
+.YVvGBb {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+}
+.dDKhVc {
+  letter-spacing: .025em;
+  font-family: Roboto,Arial,sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1rem;
+  color: #5f6368;
 }

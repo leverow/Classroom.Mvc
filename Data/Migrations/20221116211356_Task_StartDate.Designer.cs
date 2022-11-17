@@ -3,6 +3,7 @@ using System;
 using Classroom.Mvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Classroom.Mvc.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221116211356_Task_StartDate")]
+    partial class Task_StartDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
@@ -169,22 +171,22 @@ namespace Classroom.Mvc.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("505611b2-3f57-44a8-9779-1178f137374a"),
-                            ConcurrencyStamp = "6c08dc01-4abf-4d34-93ee-1ed92880874c",
+                            Id = new Guid("94142128-6f9c-4c53-a612-fe812aeae1f1"),
+                            ConcurrencyStamp = "923bb37e-8731-43e6-ba08-4a8823e9c596",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("e155db97-1290-45f8-9b83-dfc3b8d8d570"),
-                            ConcurrencyStamp = "eca59b61-e00f-4244-abd8-ad1068dd090d",
+                            Id = new Guid("8016b620-391b-40e0-9b47-3f3804c38882"),
+                            ConcurrencyStamp = "22f5014c-e2e7-4fd4-a13e-6c39ddfa4742",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = new Guid("281e8639-a42d-4243-9113-40ee9ab0055d"),
-                            ConcurrencyStamp = "80092a3d-074a-499b-8b3d-19bf04466813",
+                            Id = new Guid("a823fb53-fc73-4ae3-b1eb-aaef1957ad74"),
+                            ConcurrencyStamp = "7b5d10d3-106c-4d7b-881d-2d8e7ce21f3a",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -233,9 +235,6 @@ namespace Classroom.Mvc.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("CourseId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Role")
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "CourseId");
@@ -391,7 +390,7 @@ namespace Classroom.Mvc.Data.Migrations
             modelBuilder.Entity("Classroom.Mvc.Entities.AppTask", b =>
                 {
                     b.HasOne("Classroom.Mvc.Entities.Course", "Course")
-                        .WithMany("Tasks")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -506,8 +505,6 @@ namespace Classroom.Mvc.Data.Migrations
 
             modelBuilder.Entity("Classroom.Mvc.Entities.Course", b =>
                 {
-                    b.Navigation("Tasks");
-
                     b.Navigation("UserCourses");
                 });
 #pragma warning restore 612, 618

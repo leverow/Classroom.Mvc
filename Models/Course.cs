@@ -13,4 +13,5 @@ public class Course
     public Guid CreatedBy { get; set; }
     public AppUser? Owner { get; set; }
     public ICollection<UserCourse>? UserCourses { get; set; }
+    public ICollection<AppTask>? Tasks { get; set; }
 }

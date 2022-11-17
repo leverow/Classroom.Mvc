@@ -5,6 +5,7 @@
 <div class="row">
     <div class="leverow-content">
         <form asp-controller="Tasks" asp-action="Create" method="post" style="margin: 5px auto;">
+            @Html.HiddenFor(m => m.TargetCourseId)
             @Html.ValidationSummary(true, string.Empty, new { Class = "text-yellow" }, "span")
             <h3>@ViewData["Title"]</h3>
             <div class="form-group">
@@ -65,7 +66,7 @@
                 </div>
 
             </div>
-            <button asp-controller="Tasks" asp-action="Create" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
+            <button type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
             <i class="fa fa-sign-in mr-1"></i> Yaratish</button>
         </form>
     </div>

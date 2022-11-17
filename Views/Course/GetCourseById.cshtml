@@ -1,13 +1,22 @@
-﻿@model Classroom.Mvc.Entities.Course
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<Classroom.Mvc.Entities.AppUser> _userManager
+@model Classroom.Mvc.Entities.Course
 @{
     ViewData["Title"] = Model.Name;
 }
-@if(Model is null)
+@if (Model is null)
 {
     <p>Kurs topilmadi.</p>
 }
 else
 {
+    var currentUser = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+    var userRole = string.Empty;
+    if(currentUser is not null)
+    {
+        var userCourse = Model.UserCourses?.FirstOrDefault(u => u.UserId == currentUser.Id);
+        userRole = userCourse?.Role ?? "";
+    }
 
     <div jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b;JIbuQc:Fmspve(Q7N4Oc);KAD0te:O99HCf" jscontroller="KHqDY" jsmodel="hb3e8b" class="v9TZ3c bFjUmb-Tvm9db" id="ow124" __is_owner="true">
         <div class="qyN25">
@@ -24,67 +33,105 @@ else
             <div class="CG2qQ dsW6Nd">
                 <div jscontroller="UqV0cb" jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b">
                     <div jscontroller="RO1Frf" jsaction="rcuQ6b:rcuQ6b;rKHbQd:r2JIKb;HGIkz:VlevBc;uwjiC:rcuQ6b;JIbuQc:RYcsse(BIFOEb)" class="d4Fe0d LBlAUc NA2Gt" style="display: none;" id="ow113" __is_owner="true">
-                        <div class="NGVAIb QRiHXd"><img src="https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v6/web-48dp/logo_meet_2020q4_color_1x_web_48dp.png" alt="" aria-hidden="true" class="RponAc" data-iml="8807"><span class="asQXV">Meet</span>
+                        <div class="NGVAIb QRiHXd">
+                            <img src="https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v6/web-48dp/logo_meet_2020q4_color_1x_web_48dp.png" alt="" aria-hidden="true" class="RponAc" data-iml="8807"><span class="asQXV">Meet</span>
                             <div class="fPqOAb"></div>
-                            <div jsshadow="" role="button" class="U26fgb JRtysb WzwrXb I12f0b K2mXPb oxacD" jscontroller="iSvg6e" jsaction="click:cOuCgd; mousedown:UX7yZ; mouseup:lbsD7e; mouseenter:tfO1Yc; mouseleave:JywGue; focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef;touchstart:p6p2H; touchmove:FwuNnf; touchend:yfqBxc(preventMouseEvents=true|preventDefault=true); touchcancel:JMtRjd;keydown:I481le"
-                                aria-label="Настройки ссылки на видеовстречу в Meet" aria-disabled="false" tabindex="0" aria-haspopup="true" aria-expanded="false" data-alignright="true">
+                            <div class="U26fgb JRtysb WzwrXb I12f0b K2mXPb oxacD">
                                 <div class="NWlf3e MbhUzd" jsname="ksKsZd"></div><span jsslot="" class="MhXXcc oJeWuf"><span class="Lw7GHd snByac"><svg focusable="false" width="24" height="24" viewBox="0 0 24 24" class=" NMm5M"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></span>
-                                <div
-                                    jsname="xl07Ob" style="display: none;" aria-hidden="true">
+                                <div jsname="xl07Ob" style="display: none;" aria-hidden="true">
                                     <div role="menu" tabindex="0" class="JPdR6b hVNH5c" jscontroller="uY3Nvd" jsaction="IpSVtb:TvD9Pc;fEN2Ze:xzS4ub;frq95c:LNeFm;cFpp9e:J9oOtd; click:H8nU8b; mouseup:H8nU8b; keydown:I481le; keypress:Kr2w4b; blur:O22p3e; focus:H8nU8b">
                                         <div class="XvhY1d" jsaction="mousedown:p8EH2c; touchstart:p8EH2c">
                                             <div class="JAPqpe K0NPx"></div>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div jscontroller="UqV0cb">
-                <div jscontroller="amDIpd" class="d4Fe0d LBlAUc JwUfNc">
-                    <div class="QRiHXd"><span class="asQXV">🔑 Kurs kaliti</span>
-                        
-                </div>
-                <div class="Y5vSD QRiHXd">
-                    <div class="VnOHwf-Tvm9db z3vRcc oZ63bb">@Model.SecurityKey</div>
-                </div>
-                </div>
-            </div>
-    <div class="d4Fe0d LBlAUc ">
-        <div class="WMQb5e" jsmodel="hCpsVc">
-            <h2 class="EZrbnd sxa9Pc" style="font-weight: bold">Kurs ma'lumotlari</h2>
-            <div jscontroller="sxyRaf" jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b;GjA5Zb:rcuQ6b">
-                <div class="lziZub sdDCme"><span class="Y5vSD">Kurs muallifi: @Model.User?.UserName <br> Yaratilgan sana: @Model.CreatedAt.ToString("MM/dd/yyyy") <br /></span></div>
-                <div class="CHJgKd">
-                    <div class="VfPpkd-dgl2Hf-ppHlrf-sM5MNb" data-is-touch-wrapper="true">
-                        <div class="VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-dgl2Hf ksBjEc lKxP2d LQeN7 uBUej n42Gr" jscontroller="nKuFpb" jsaction="click:cOuCgd; mousedown:UX7yZ; mouseup:lbsD7e; mouseenter:tfO1Yc; mouseleave:JywGue; touchstart:p6p2H; touchmove:FwuNnf; touchend:yfqBxc; touchcancel:JMtRjd; focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef;mlnRJb:fLiPzd"
-                            data-idom-class="ksBjEc lKxP2d LQeN7 uBUej n42Gr">
-                            <div class="VfPpkd-Jh9lGc"></div>
+                <div jscontroller="UqV0cb">
+                    <div jscontroller="amDIpd" class="d4Fe0d LBlAUc JwUfNc">
+                        <div class="QRiHXd">
+                            <span class="asQXV">🔑 Kurs kaliti</span>
+
+                        </div>
+                        <div class="Y5vSD QRiHXd">
+                            <div class="VnOHwf-Tvm9db z3vRcc oZ63bb">@Model.SecurityKey</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    </aside>
-    <main class="Sgw65b kdAl3b" jsmodel="uJydvc;I8BbUd;UvJ3Mb;" tabindex="-1" role="main">
-        <div jsmodel="NYdJ9b" data-include-stream-item-materials="false" data-stream-item-types="3" data-list-type="5" data-active-filter="1" data-load-all-pages="true">
-            <div jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b;oquPK:rcuQ6b;o2F6Cf:if3DMb" jscontroller="s2wDwf"></div>
-        </div>
-        <section guidedhelpid="streamContentGH" role="section" jsmodel="NYdJ9b" data-include-stream-item-materials="false" data-list-type="3" data-active-filter="2" data-load-all-pages="false">
-            <div jsaction="rcuQ6b:BU4fHd;HO6t5b:BU4fHd;oquPK:E3Ktff;uwjiC:E3Ktff,rcuQ6b;wJx4ze:rcuQ6b;gbLJWc:ZLWxKf;JIbuQc:fyRA7e(idVoDf)" jscontroller="yidvwe" id="ow81" __is_owner="true">
-                
-            <div class="Aopndd MdjMac">
-                <img src="~/images//leverow/task_add.svg" alt="Blank" width="300">
-                <div>
-                    <p class="VnOHwf-Tvm9db z3vRcc aQkHxe">Hozircha kursda hech qanday vazifalar yo'q</p>
-                    <p class="asQXV">Lentaga o'z vazifangizni qo'shishingiz mumkin.</p>
+                <div class="d4Fe0d LBlAUc ">
+                    <div class="WMQb5e" jsmodel="hCpsVc">
+                        <h2 class="EZrbnd sxa9Pc" style="font-weight: bold">Kurs ma'lumotlari</h2>
+                        <div jscontroller="sxyRaf" jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b;GjA5Zb:rcuQ6b">
+                            <div class="lziZub sdDCme"><span class="Y5vSD">Kurs muallifi: @Model.User?.UserName <br> Yaratilgan sana: @Model.CreatedAt.ToString("MM/dd/yyyy") <br /></span></div>
+                            <div class="CHJgKd">
+                                <div class="VfPpkd-dgl2Hf-ppHlrf-sM5MNb" data-is-touch-wrapper="true">
+                                    <div class="VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-dgl2Hf ksBjEc lKxP2d LQeN7 uBUej n42Gr" jscontroller="nKuFpb" jsaction="click:cOuCgd; mousedown:UX7yZ; mouseup:lbsD7e; mouseenter:tfO1Yc; mouseleave:JywGue; touchstart:p6p2H; touchmove:FwuNnf; touchend:yfqBxc; touchcancel:JMtRjd; focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef;mlnRJb:fLiPzd"
+                                     data-idom-class="ksBjEc lKxP2d LQeN7 uBUej n42Gr">
+                                        <div class="VfPpkd-Jh9lGc"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+        </aside>
+        <main class="Sgw65b kdAl3b" jsmodel="uJydvc;I8BbUd;UvJ3Mb;" tabindex="-1" role="main">
+            <div jsmodel="NYdJ9b" data-include-stream-item-materials="false" data-stream-item-types="3" data-list-type="5" data-active-filter="1" data-load-all-pages="true">
+                <div jsaction="rcuQ6b:rcuQ6b;uwjiC:rcuQ6b;oquPK:rcuQ6b;o2F6Cf:if3DMb" jscontroller="s2wDwf"></div>
             </div>
-            </div>
-        </section>
-        <div jscontroller="qkFKAf" jsmodel="qjXhl" jsaction="rcuQ6b:ZiN7ye"></div>
-    </main>
+            <section>
+                <div jsaction="rcuQ6b:BU4fHd;HO6t5b:BU4fHd;oquPK:E3Ktff;uwjiC:E3Ktff,rcuQ6b;wJx4ze:rcuQ6b;gbLJWc:ZLWxKf;JIbuQc:fyRA7e(idVoDf)" jscontroller="yidvwe" id="ow81" __is_owner="true">
+
+                    <div class="Aopndd MdjMac">
+                        @if(userRole.Contains("teacher") || userRole.Contains("owner"))
+                        {
+                            <a class="btn" style="background-color: #ffbc665e;" asp-controller="Tasks" asp-action="Create" asp-route-targetCourseId="@Model.Id"><i class="fa fa-plus"></i> Vazifa qo'shish</a>
+                        }
+                        @if (Model.Tasks is null)
+                        {
+                            <img src="~/images/leverow/task_add.svg" alt="Blank" width="300">
+                            <div>
+                                <p class="VnOHwf-Tvm9db z3vRcc aQkHxe">Hozircha kursda hech qanday vazifalar yo'q</p>
+                                @if(userRole.Contains("teacher") || userRole.Contains("owner"))
+                                {
+                                    <p class="asQXV">Lentaga o'z vazifangizni qo'shishingiz mumkin.</p>
+                                }
+                            </div>
+                        }
+                    </div>
+                    @if (Model.Tasks != null)
+                    {
+                        foreach(var taskItem in Model.Tasks)
+                        {
+                            <div class="qhnNic LBlAUc Aopndd TIunU ZoT1D idtp4e DkDwHe">
+                                <div class="n4xnA">
+                                    <div class="JZicYb QRiHXd">
+                                        <div class="bxp7vf bFjUmb-Wvd9Cc m1PbN qJJSvb vUBwW"><svg focusable="false" width="24" height="24" viewBox="0 0 24 24" class=" NMm5M hhikbc"><path d="M7 15h7v2H7zm0-4h10v2H7zm0-4h10v2H7z"></path><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04a2.008 2.008 0 0 0-1.44 1.19c-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z"></path></svg></div><div class="GQW44b">
+                                            <div class="lziZub tLDEHd">
+                                                <div class="QRiHXd">
+                                                    <span class="YVvGBb asQXV">@taskItem.Title</span>
+                                                    <div class="QRiHXd Y5vSD"></div>
+                                                </div>
+                                            </div>
+                                            <span class="IMvYId dDKhVc YVvGBb">
+                                                <span aria-hidden="true"><i class="fa fa-calendar">&nbsp;</i> @taskItem.StartDate</span>
+                                            </span>
+                                        </div><div class="Nmpzvc"></div><div></div>
+                                    </div>
+                                </div>
+                                <div class="BoJUHd">
+                                    <a class="onkcGd JX1kZ VBEdtc-Wvd9Cc zZN2Lb-Wvd9Cc">
+                                        <div class="QSmq3c ZNE4y"></div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </section>
+            <div jscontroller="qkFKAf" jsmodel="qjXhl" jsaction="rcuQ6b:ZiN7ye"></div>
+        </main>
     </div>
 }

@@ -1,4 +1,6 @@
-﻿namespace Classroom.Mvc.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Classroom.Mvc.ViewModels;
 
 public class CreateTaskViewModel
 {
@@ -8,4 +10,7 @@ public class CreateTaskViewModel
     public ushort MaxScore { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
+
+    [Required]
+    public Guid TargetCourseId { get; set; }
 }

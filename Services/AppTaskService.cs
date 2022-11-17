@@ -23,8 +23,8 @@ public class AppTaskService : IAppTaskService
 
         if (string.IsNullOrWhiteSpace(model.Title)) return new("Title is invalid");
 
-        var retrievedAppTask = _unitOfWork.Tasks.GetAll().FirstOrDefault(s => s.Title == model.Title);
-        if (retrievedAppTask != null) return new("Task already exists");
+        var targetCourse = await _unitOfWork.Courses.GetAll().FirstOrDefaultAsync(c => c.Id == model.CourseId);
+        if (targetCourse is null) return new("Course with given id not found.");
 
         var entity = model.Adapt<Entities.AppTask>();
 
@@ -33,8 +33,10 @@ public class AppTaskService : IAppTaskService
             entity.CreatedDate = DateTime.UtcNow;
             entity.StartDate = DateTime.UtcNow;
 
-            var createdAppTask = await _unitOfWork.Tasks.AddAsync(entity);
-            return new(true) { Data = createdAppTask.Adapt<Models.AppTask>() };
+            targetCourse.Tasks?.Add(entity);
+            _unitOfWork.Save();
+
+            return new(true);
         }
         catch (Exception exception)
         {

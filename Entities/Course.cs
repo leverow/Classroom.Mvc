@@ -17,4 +17,5 @@ public class Course
     public virtual AppUser? User { get; set; }
 
     public virtual ICollection<UserCourse>? UserCourses { get; set; }
+    public virtual ICollection<AppTask>? Tasks { get; set; }
 }

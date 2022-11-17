@@ -9,4 +9,5 @@ public class UserCourse
     
     public Guid CourseId { get; set; }
     public virtual Course? Course { get; set; }
+    public string? Role { get; set; }
 }
