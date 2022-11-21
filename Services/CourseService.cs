@@ -1,4 +1,5 @@
-﻿using Classroom.Mvc.Models;
+﻿using Classroom.Mvc.Entities;
+using Classroom.Mvc.Models;
 using Classroom.Mvc.Repository;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +22,7 @@ public class CourseService : ICourseService
         _unitOfWork = unitOfWork;
         _userManager = userManager;
     }
-    public async Task<Result<Entities.Course>> CreateAsync(Course model, string? ownerName)
+    public async Task<Result<Entities.Course>> CreateAsync(Models.Course model, string? ownerName)
     {
         if (model is null) throw new ArgumentNullException(nameof(model));
 
@@ -37,7 +38,7 @@ public class CourseService : ICourseService
             entity.SecurityKey = Guid.NewGuid().ToString("N").Substring(0, 7);
             entity.CreatedAt = DateTime.UtcNow;
             entity.ImageType = (uint)rnd.Next(0, 9);
-            entity.Status = ToEntity(Models.ECourseStatus.Created);
+            entity.Status = ECourseStatus.Created;
 
             var createdCourse = await _unitOfWork.Courses.AddAsync(entity);
 
@@ -45,7 +46,8 @@ public class CourseService : ICourseService
             var userCourseEntity = new Entities.UserCourse()
             {
                 UserId = owner.Id,
-                CourseId = createdCourse.Id
+                CourseId = createdCourse.Id,
+                Role = "student,teacher,owner"
             };
 
             await _unitOfWork.UserCourses.AddUserCourseAsync(userCourseEntity);
@@ -59,14 +61,6 @@ public class CourseService : ICourseService
             throw new("Couldn't create Course. Contact support.", exception);
         }
     }
-
-    private Entities.ECourseStatus ToEntity(Models.ECourseStatus status)
-    => status switch
-    {
-        Models.ECourseStatus.Created => Entities.ECourseStatus.Created,
-        Models.ECourseStatus.Deleted => Entities.ECourseStatus.Deleted,
-        _ => Entities.ECourseStatus.Active
-    };
 
     public async Task<bool> Exists(Guid id)
     {
@@ -107,13 +101,15 @@ public class CourseService : ICourseService
         }
     }
 
-    public async Task<Result<Entities.Course>> GetCourseByKeyAsync(string? secretKey)
+    public async Task<Result<Entities.Course>> GetCourseByKeyAsync(string? securityKey)
     {
-        if (string.IsNullOrWhiteSpace(secretKey)) return new("Key is invalid");
+        if (string.IsNullOrWhiteSpace(securityKey))
+            return new("Key is invalid");
         try
         {
-            var existingCourse = await _unitOfWork.Courses.GetAll().FirstOrDefaultAsync(s => s.SecurityKey == secretKey);
-            if (existingCourse is null) return new("Course with given key not found.");
+            var existingCourse = await _unitOfWork.Courses.GetAll().FirstOrDefaultAsync(c => c.SecurityKey == securityKey);
+            if (existingCourse is null)
+                return new("Course with given key not found.");
 
             return new(true) { Data = existingCourse };
         }
@@ -142,7 +138,7 @@ public class CourseService : ICourseService
         }
     }
 
-    public async Task<Result<Entities.Course>> UpdateAsync(Guid id, Course model)
+    public async Task<Result<Entities.Course>> UpdateAsync(Guid id, Models.Course model)
     {
         if (model is null) throw new ArgumentNullException(nameof(model));
 

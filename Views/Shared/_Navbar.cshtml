@@ -4,15 +4,9 @@
 @{
     var hostname = options.Value.Hostname;
     var currentRoute = Url.RouteUrl(ViewContext.RouteData.Values);
-    bool IsActive(string route = "/")
-    {
-        if (string.IsNullOrEmpty(currentRoute)) currentRoute = "/";
-        if (!currentRoute.Contains(route))
-            return false;
-        return true;
-    }
+    
 }
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 fixed">
+<nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 fixed">
     <img src="~/images/demo/shards-logo.svg" alt="@hostname" class="mr-2" height="30">
     <a class="navbar-brand" href="#">@hostname</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown-1" aria-controls="navbarNavDropdown-1"
@@ -21,13 +15,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown-1">
     <ul class="navbar-nav mr-auto">
-        <li class='nav-item @(IsActive("/") ? "active" : string.Empty)'>
-        <a class="nav-link" href="#">Bosh sahifa
-            @*<span class="sr-only">(current)</span>*@
-        </a>
+        <li class='nav-item'>
+        <a class="nav-link" asp-controller="Home" asp-action="Index">Bosh sahifa</a>
         </li>
-        <li class='nav-item @(IsActive("classes") ? "active" : string.Empty)'>
-        <a class="nav-link" href="#">Sinflar</a>
+        <li class='nav-item'>
+        <a class="nav-link" asp-controller="Profile" asp-action="GetCourses">Kurslar</a>
         </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -45,22 +37,8 @@
         @if(!User.Identity.IsAuthenticated)
         {
             <li class="nav-item ml-12">
-            @if(IsActive("register"))
-            {
-                <a asp-controller="Account" asp-action="Login">Login</a>
-            }
-            else if(IsActive("Login"))
-            {
-                <a asp-controller="Account" asp-action="Register">Register</a>
-            }
-            else
-            {
-                <a asp-controller="Account" asp-action="Login" type="button" class="btn btn-pill btn-primary">
-                    <i class="fa fa-sign-in mr-1"></i>Login</a>
-            
-                <a asp-controller="Account" asp-action="Register" type="button" class="btn btn-pill btn-info">
-                <i class="fa fa-user-plus mr-1"></i>Register</a>
-            }
+                <a asp-controller="Account" asp-action="Login" class="btn btn-pill btn-primary"><i class="fa fa-sign-in mr-1"></i>Login</a>
+                <a asp-controller="Account" asp-action="Register" class="btn btn-pill btn-info"><i class="fa fa-user-plus mr-1"></i>Register</a>
             </li>
         }
         else
@@ -69,10 +47,10 @@
                 <img style="border-radius: 9px" src='@Url.Action("GetUserImage", "Account", new { name = User.Identity.Name })' alt="@User.Identity.Name" width="50" height="50">
             </li>
             <li class="nav-item" style="list-style-type: none;">
-                <a class="nav-link text-dark">@User.Identity.Name</a>
+                <a class="nav-link text-light">@User.Identity.Name</a>
             </li>
             <li class="nav-item" style="list-style-type: none;">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
             </li>
         }
     </ul>

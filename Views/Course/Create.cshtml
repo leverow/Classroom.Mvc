@@ -27,6 +27,16 @@
             </div>
             <span asp-validation-for="Description" class="text-danger" style="font-size:12px"></span>
 
+            <div class="input-group input-group-seamless mt-3">
+            <span class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fa fa-group"></i>
+                </span>
+            </span>
+            <input asp-for="Audience" type="text" class="form-control" id="form3-audience" placeholder="Kimlarga mo'ljallangan?">
+            </div>
+            <span asp-validation-for="Audience" class="text-danger" style="font-size:12px"></span>
+
         </div>
         <button asp-controller="Course" asp-action="Create" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
         <i class="fa fa-sign-in mr-1"></i> Yaratish</button>

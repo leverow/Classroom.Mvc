@@ -1,5 +1,7 @@
 ﻿@model CourseMultipleViewModel
-
+@{
+    ViewData["Title"] = (Model.IsInValidKey ? "Kalit xato" : "Ruxsat yo'q");
+}
 <div class="row">
     <div class="leverow-content" style="text-align:center">
         @if(Model.IsInValidKey)

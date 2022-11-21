@@ -1,11 +1,11 @@
 ﻿@model CourseMultipleViewModel
 @{
-    ViewData["Title"] = "Kurslar";
+    ViewData["Title"] = "Menin kurslarim";
 }
 <div class="row">
     <div class="leverow-content">
         
-            @if(Model.UserCourse.Count == 0)
+            @if(Model.UserCourse?.Count == 0)
             {
                 <h4 class="text-warning">Sizda hali hech qanday kurslar mavjud emas.</h4><br />
             }
@@ -13,7 +13,7 @@
             {
                 <h3 class="text-primary">Kurslar ro'yxati</h3><br>
                 <div class="leverow-courses-list">
-                @for(var i = 0; i < Model.UserCourse.Count; i++)
+                @for(var i = 0; i < Model.UserCourse?.Count; i++)
                 {
                     var course = Model.UserCourse[i].Course!;
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">

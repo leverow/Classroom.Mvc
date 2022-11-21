@@ -72,10 +72,12 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<ActionResult> LoginAsync(LoginUserViewModel dtoModel)
     {
-        if (!ModelState.IsValid) return View(dtoModel);
+        if (!ModelState.IsValid)
+            return View(dtoModel);
         var signInResult = await _signInManager.PasswordSignInAsync(dtoModel.UserName, dtoModel.Password, false, false);
 
-        if (!signInResult.Succeeded) return View(dtoModel);
+        if (!signInResult.Succeeded)
+            return View(dtoModel);
 
         return LocalRedirect($"{dtoModel.ReturnUrl ?? "/"}");
     }

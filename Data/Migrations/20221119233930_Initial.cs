@@ -55,19 +55,6 @@ namespace Classroom.Mvc.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Schools",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Schools", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserTasks",
                 columns: table => new
                 {
@@ -188,29 +175,26 @@ namespace Classroom.Mvc.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sciences",
+                name: "Courses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Audience = table.Column<string>(type: "TEXT", nullable: true),
+                    SecurityKey = table.Column<string>(type: "TEXT", nullable: true),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
-                    SchoolId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ImageType = table.Column<uint>(type: "INTEGER", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sciences", x => x.Id);
+                    table.PrimaryKey("PK_Courses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sciences_AspNetUsers_CreatedBy",
+                        name: "FK_Courses_AspNetUsers_CreatedBy",
                         column: x => x.CreatedBy,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Sciences_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -246,48 +230,47 @@ namespace Classroom.Mvc.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ScienceId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Status = table.Column<uint>(type: "INTEGER", nullable: false),
+                    CourseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Url = table.Column<string>(type: "TEXT", nullable: true),
                     MaxScore = table.Column<ushort>(type: "INTEGER", nullable: false),
-                    CreatedDate = table.Column<decimal>(type: "TEXT", nullable: false),
-                    StartDate = table.Column<decimal>(type: "TEXT", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EndDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tasks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tasks_Sciences_ScienceId",
-                        column: x => x.ScienceId,
-                        principalTable: "Sciences",
+                        name: "FK_Tasks_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserSciences",
+                name: "UserCourses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ScienceId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    CourseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Role = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserSciences", x => x.Id);
+                    table.PrimaryKey("PK_UserCourses", x => new { x.UserId, x.CourseId });
                     table.ForeignKey(
-                        name: "FK_UserSciences_AspNetUsers_UserId",
+                        name: "FK_UserCourses_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserSciences_Sciences_ScienceId",
-                        column: x => x.ScienceId,
-                        principalTable: "Sciences",
+                        name: "FK_UserCourses_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -295,17 +278,17 @@ namespace Classroom.Mvc.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("5947cb11-f41e-4b8e-8cbd-955733598666"), "979f0764-be0d-4e7a-bbed-433d1e3129a6", "Admin", "ADMIN" });
+                values: new object[] { new Guid("3d7d38f6-598a-41d1-88ef-349676591ed1"), "937dd030-dda6-4054-9576-33ff064c7036", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("ac6c22d1-d358-420d-90c0-a38357eafe35"), "cbe7ff1c-fdfc-442b-8fc2-7c0772c4f541", "Student", "STUDENT" });
+                values: new object[] { new Guid("7191c16b-e3f8-4c3c-b833-8780bf187c22"), "5ae8a544-7914-4ece-8fda-ca63af2c4053", "Teacher", "TEACHER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("ad565139-b7ac-4994-8738-48fb6e29e738"), "b5cf4bc2-21e9-4a5d-80c5-89459de83036", "Teacher", "TEACHER" });
+                values: new object[] { new Guid("b73f91bc-6dc8-4d31-991c-b616a102e5af"), "da6ecd08-1082-4522-9878-e125e92cdde5", "Student", "STUDENT" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -345,29 +328,19 @@ namespace Classroom.Mvc.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sciences_CreatedBy",
-                table: "Sciences",
+                name: "IX_Courses_CreatedBy",
+                table: "Courses",
                 column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sciences_SchoolId",
-                table: "Sciences",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tasks_ScienceId",
+                name: "IX_Tasks_CourseId",
                 table: "Tasks",
-                column: "ScienceId");
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserSciences_ScienceId",
-                table: "UserSciences",
-                column: "ScienceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserSciences_UserId",
-                table: "UserSciences",
-                column: "UserId");
+                name: "IX_UserCourses_CourseId",
+                table: "UserCourses",
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserTaskComments_UserId",
@@ -401,7 +374,7 @@ namespace Classroom.Mvc.Data.Migrations
                 name: "Tasks");
 
             migrationBuilder.DropTable(
-                name: "UserSciences");
+                name: "UserCourses");
 
             migrationBuilder.DropTable(
                 name: "UserTaskComments");
@@ -410,16 +383,13 @@ namespace Classroom.Mvc.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Sciences");
+                name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "UserTasks");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Schools");
         }
     }
 }

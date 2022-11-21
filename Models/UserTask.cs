@@ -1,4 +1,6 @@
-﻿namespace Classroom.Mvc.Models;
+﻿using Classroom.Mvc.Entities;
+
+namespace Classroom.Mvc.Models;
 
 public class UserTask
 {

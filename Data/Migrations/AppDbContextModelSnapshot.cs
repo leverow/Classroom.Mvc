@@ -41,13 +41,10 @@ namespace Classroom.Mvc.Data.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<uint>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -169,22 +166,22 @@ namespace Classroom.Mvc.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("505611b2-3f57-44a8-9779-1178f137374a"),
-                            ConcurrencyStamp = "6c08dc01-4abf-4d34-93ee-1ed92880874c",
+                            Id = new Guid("4341536d-cf5f-42b4-a015-7c75ee95845f"),
+                            ConcurrencyStamp = "6fb79654-2da7-45c5-8fa5-37fb9921b60d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("e155db97-1290-45f8-9b83-dfc3b8d8d570"),
-                            ConcurrencyStamp = "eca59b61-e00f-4244-abd8-ad1068dd090d",
+                            Id = new Guid("2d790dd3-f175-4dee-8952-4773455291b5"),
+                            ConcurrencyStamp = "470ab529-8be3-451c-bb71-5919fe01a482",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = new Guid("281e8639-a42d-4243-9113-40ee9ab0055d"),
-                            ConcurrencyStamp = "80092a3d-074a-499b-8b3d-19bf04466813",
+                            Id = new Guid("d3dfb5b1-8b4d-4bd2-ba0b-0bac7bac2477"),
+                            ConcurrencyStamp = "c578a8ef-98a8-47c8-9540-78d94027210c",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -251,6 +248,9 @@ namespace Classroom.Mvc.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
@@ -261,6 +261,10 @@ namespace Classroom.Mvc.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TaskId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserTasks");
                 });
@@ -429,6 +433,25 @@ namespace Classroom.Mvc.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Classroom.Mvc.Entities.UserTask", b =>
+                {
+                    b.HasOne("Classroom.Mvc.Entities.AppTask", "Task")
+                        .WithMany("UserTasks")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Classroom.Mvc.Entities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Task");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Classroom.Mvc.Entities.UserTaskComment", b =>
                 {
                     b.HasOne("Classroom.Mvc.Entities.AppUser", "User")
@@ -497,6 +520,11 @@ namespace Classroom.Mvc.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Classroom.Mvc.Entities.AppTask", b =>
+                {
+                    b.Navigation("UserTasks");
                 });
 
             modelBuilder.Entity("Classroom.Mvc.Entities.AppUser", b =>

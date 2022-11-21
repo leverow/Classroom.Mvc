@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Classroom.Mvc.ViewModels;
 
-public class CreateTaskViewModel
+public class UpdateTaskViewModel
 {
     [Required]
     public string? Title { get; set; }
@@ -15,4 +15,6 @@ public class CreateTaskViewModel
 
     [Required]
     public Guid CourseId { get; set; }
+    [Required]
+    public Guid TaskId { get; set; }
 }

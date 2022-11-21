@@ -239,11 +239,7 @@
 
 /*Tasks list*/
 .MdjMac {
-  -moz-box-align: center;
-  align-items: center;
-  display: -moz-box;
-  display: flex;
-  padding: 2rem 1rem 2rem 2rem;
+  padding: 2rem 1rem 1rem 2rem;
 }
 .Aopndd {
   background-color: #fff;
@@ -402,3 +398,59 @@
   line-height: 1rem;
   color: #5f6368;
 }
+.user-name
+{
+	text-decoration: none;
+	word-wrap: break-word;
+	width: 100%;
+	font-weight: 500;
+}
+.navbar li a {
+  color: #1f2429;
+  font-weight: 600;
+}
+@media (min-width: 576px)
+{
+	.Aopndd img {
+	  width: 49%;
+	}
+}
+@media screen and (min-width: 601px) {
+	
+}
+.host-name
+{
+	font-weight: 600;font-size: 12vw;
+}
+@media screen and (min-width: 768px)
+{
+	.host-name
+	{
+		font-weight: 600;
+		font-size: 7vw;
+	}
+}
+@media (min-width: 992px)
+{
+	.navbar-expand-lg .navbar-collapse
+	{
+		justify-content: center;
+	}
+	.Aopndd img {
+	  width: 39%;
+	}
+}
+
+.leverow-home-nav
+{
+	margin: 0px auto;
+	margin-bottom: 0px;
+	background-color: #a7a7a738;
+	border-radius: 10px;
+	width: 300px;
+	display: block;
+}
+.nav-item.leverow-nav-item {
+  margin: 4px 0;
+}
+

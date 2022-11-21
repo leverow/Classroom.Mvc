@@ -5,10 +5,12 @@
 <div id="modals" class="container">
     <div class="mb-5">
         <!-- Trigger -->
-        <button type="button" class="btn btn-primary btn-pill btn-lg d-table ml-auto mr-auto" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-sign-in">&nbsp;</i> Kursga kirish
-        </button>
-
+        <div style="display:flex;justify-content: center;">
+            <button type="button" class="btn btn-primary btn-pill btn-lg d-table" data-toggle="modal" data-target="#exampleModal">
+                <i class="fa fa-sign-in">&nbsp;</i> Kursga kirish
+            </button>
+            <a class="btn btn-success btn-pill btn-lg" style="margin-left:15px;" asp-controller="Course" asp-action="Create"><i class="fa fa-plus"></i> Kurs qo'shish</a>
+        </div>
         <!-- Modal Body -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -39,4 +41,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

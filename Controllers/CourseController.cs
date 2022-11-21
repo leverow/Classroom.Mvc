@@ -10,49 +10,35 @@ using Microsoft.AspNetCore.StaticFiles;
 namespace Classroom.Mvc.Controllers;
 
 [Authorize]
-public class CourseController : Controller
+public partial class CourseController : Controller
 {
     private readonly ILogger<CourseController> _logger;
     private readonly ICourseService _courseService;
     private readonly UserManager<Entities.AppUser> _userManager;
+    private readonly IAppTaskService _taskService;
 
     public CourseController(
         ILogger<CourseController> logger,
         ICourseService courseService,
-        UserManager<Entities.AppUser> userManager)
+        UserManager<Entities.AppUser> userManager,
+        IAppTaskService appTaskService)
     {
         _logger = logger;
         _courseService = courseService;
         _userManager = userManager;
+        _taskService = appTaskService;
     }
 
-    public async Task<IActionResult> Index()
-    {
-        var user = await _userManager.GetUserAsync(User);
-        if (user is null)
-        {
-            ModelState.AddModelError(string.Empty, "User not found");
-            return View();
-        };
-        var userCourseList = user.UserCourses?.ToList();
-
-        if (userCourseList is null)
-            return View(new CourseMultipleViewModel() { UserCourse = new List<Entities.UserCourse>() });
-        
-        return View(new CourseMultipleViewModel() { UserCourse = userCourseList });
-    }
     public IActionResult Create()
-    {
-        return View(new CreateCourseViewModel());
-    }
+        => View(new CreateCourseViewModel());
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateCourseViewModel dtoModel)
     {
-        if(!ModelState.IsValid) return View(dtoModel);
+        if (!ModelState.IsValid) return View(dtoModel);
 
         var createdCourseResult = await _courseService.CreateAsync(dtoModel.Adapt<Course>(), User.Identity?.Name);
-        if(!createdCourseResult.IsSuccess)
+        if (!createdCourseResult.IsSuccess)
         {
             ModelState.AddModelError(string.Empty, createdCourseResult.ErrorMessage ?? string.Empty);
             return View(dtoModel);
@@ -61,11 +47,10 @@ public class CourseController : Controller
         return RedirectToAction("GetCourseById", new { id = createdCourseResult.Data!.Id });
     }
 
-    [HttpGet("[controller]/id/{id}",Name = "get")]
-    public async Task<IActionResult> GetCourseById(string id)
+    [HttpGet("[controller]/id/{id}")]
+    public async Task<IActionResult> GetCourseById(Guid id)
     {
-        if (string.IsNullOrWhiteSpace(id)) return BadRequest("Invalid course Id");
-        var retrievedCourseResult = await _courseService.GetCourseByIdAsync(Guid.Parse(id));
+        var retrievedCourseResult = await _courseService.GetCourseByIdAsync(id);
         if (!retrievedCourseResult.IsSuccess)
         {
             ModelState.AddModelError(string.Empty, retrievedCourseResult.ErrorMessage ?? string.Empty);
@@ -73,30 +58,31 @@ public class CourseController : Controller
         }
         var user = await _userManager.GetUserAsync(User);
 
-        var hasUserGotAccess = retrievedCourseResult.Data.UserCourses.Any(uc => uc.UserId == user.Id);
-        
-        if (!hasUserGotAccess)
-            return View("NotFound", new CourseMultipleViewModel() { IsAccessDenied = true});
-        
-        return View(retrievedCourseResult.Data);
+        var course = retrievedCourseResult.Data!;
+
+        if (course.UserCourses?.Any(uc => uc.UserId == user.Id) != true)
+            return View("NotFound", new CourseMultipleViewModel() { IsAccessDenied = true });
+
+        return View(course);
     }
 
-    [HttpPost]
+    [HttpPost("[controller]/join")]
     public async Task<IActionResult> JoinCourse(string key)
     {
-        if (string.IsNullOrWhiteSpace(key)) return BadRequest("Invalid key");
+        if (string.IsNullOrWhiteSpace(key))
+            return BadRequest("Invalid key");
 
         var existingCourseResult = await _courseService.GetCourseByKeyAsync(key);
         if(!existingCourseResult.IsSuccess)
-        {
             return View("NotFound", new CourseMultipleViewModel() { IsInValidKey = true});
-        }
+        
         var course = existingCourseResult.Data;
 
         var user = await _userManager.GetUserAsync(User);
-        if (user is null) return BadRequest("User not found");
+        if (user is null)
+            return BadRequest("User not found");
 
-        if(!course.UserCourses.Any(u => u.UserId == user.Id))
+        if(course!.UserCourses?.Any(u => u.UserId == user.Id) != true)
         {
             course.UserCourses?.Add(new Entities.UserCourse()
             {
@@ -110,7 +96,7 @@ public class CourseController : Controller
     }
 
     [HttpGet("[controller]/banner")]
-    public async Task<FileContentResult> GetCourseBanner(uint type)
+    public FileContentResult GetCourseBanner(uint type)
     {
         if (type >= 9 || type <= 0) type = 0;
         string contentType = string.Empty;

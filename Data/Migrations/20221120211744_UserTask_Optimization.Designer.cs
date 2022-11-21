@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Classroom.Mvc.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221114005801_Initial")]
-    partial class Initial
+    [Migration("20221120211744_UserTask_Optimization")]
+    partial class UserTask_Optimization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,7 +25,10 @@ namespace Classroom.Mvc.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("CreatedDate")
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -37,24 +40,18 @@ namespace Classroom.Mvc.Data.Migrations
                     b.Property<ushort>("MaxScore")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("ScienceId")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("StartDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<uint>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ScienceId");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Tasks");
                 });
@@ -171,49 +168,34 @@ namespace Classroom.Mvc.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5947cb11-f41e-4b8e-8cbd-955733598666"),
-                            ConcurrencyStamp = "979f0764-be0d-4e7a-bbed-433d1e3129a6",
+                            Id = new Guid("4341536d-cf5f-42b4-a015-7c75ee95845f"),
+                            ConcurrencyStamp = "6fb79654-2da7-45c5-8fa5-37fb9921b60d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("ad565139-b7ac-4994-8738-48fb6e29e738"),
-                            ConcurrencyStamp = "b5cf4bc2-21e9-4a5d-80c5-89459de83036",
+                            Id = new Guid("2d790dd3-f175-4dee-8952-4773455291b5"),
+                            ConcurrencyStamp = "470ab529-8be3-451c-bb71-5919fe01a482",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = new Guid("ac6c22d1-d358-420d-90c0-a38357eafe35"),
-                            ConcurrencyStamp = "cbe7ff1c-fdfc-442b-8fc2-7c0772c4f541",
+                            Id = new Guid("d3dfb5b1-8b4d-4bd2-ba0b-0bac7bac2477"),
+                            ConcurrencyStamp = "c578a8ef-98a8-47c8-9540-78d94027210c",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
                 });
 
-            modelBuilder.Entity("Classroom.Mvc.Entities.School", b =>
+            modelBuilder.Entity("Classroom.Mvc.Entities.Course", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Schools");
-                });
-
-            modelBuilder.Entity("Classroom.Mvc.Entities.Science", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Audience")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -222,10 +204,16 @@ namespace Classroom.Mvc.Data.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<uint>("ImageType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("SchoolId")
+                    b.Property<string>("SecurityKey")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
@@ -235,36 +223,34 @@ namespace Classroom.Mvc.Data.Migrations
 
                     b.HasIndex("CreatedBy");
 
-                    b.HasIndex("SchoolId");
-
-                    b.ToTable("Sciences");
+                    b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("Classroom.Mvc.Entities.UserScience", b =>
+            modelBuilder.Entity("Classroom.Mvc.Entities.UserCourse", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ScienceId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("ScienceId");
+                    b.Property<string>("Role")
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("UserId");
+                    b.HasKey("UserId", "CourseId");
 
-                    b.ToTable("UserSciences");
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("UserCourses");
                 });
 
             modelBuilder.Entity("Classroom.Mvc.Entities.UserTask", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
@@ -277,6 +263,10 @@ namespace Classroom.Mvc.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TaskId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserTasks");
                 });
@@ -406,16 +396,16 @@ namespace Classroom.Mvc.Data.Migrations
 
             modelBuilder.Entity("Classroom.Mvc.Entities.AppTask", b =>
                 {
-                    b.HasOne("Classroom.Mvc.Entities.Science", "Science")
-                        .WithMany()
-                        .HasForeignKey("ScienceId")
+                    b.HasOne("Classroom.Mvc.Entities.Course", "Course")
+                        .WithMany("Tasks")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Science");
+                    b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("Classroom.Mvc.Entities.Science", b =>
+            modelBuilder.Entity("Classroom.Mvc.Entities.Course", b =>
                 {
                     b.HasOne("Classroom.Mvc.Entities.AppUser", "User")
                         .WithMany()
@@ -423,22 +413,33 @@ namespace Classroom.Mvc.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Classroom.Mvc.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Classroom.Mvc.Entities.UserCourse", b =>
+                {
+                    b.HasOne("Classroom.Mvc.Entities.Course", "Course")
+                        .WithMany("UserCourses")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("School");
+                    b.HasOne("Classroom.Mvc.Entities.AppUser", "User")
+                        .WithMany("UserCourses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Classroom.Mvc.Entities.UserScience", b =>
+            modelBuilder.Entity("Classroom.Mvc.Entities.UserTask", b =>
                 {
-                    b.HasOne("Classroom.Mvc.Entities.Science", "Science")
-                        .WithMany()
-                        .HasForeignKey("ScienceId")
+                    b.HasOne("Classroom.Mvc.Entities.AppTask", "Task")
+                        .WithMany("UserTasks")
+                        .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -448,7 +449,7 @@ namespace Classroom.Mvc.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Science");
+                    b.Navigation("Task");
 
                     b.Navigation("User");
                 });
@@ -521,6 +522,23 @@ namespace Classroom.Mvc.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Classroom.Mvc.Entities.AppTask", b =>
+                {
+                    b.Navigation("UserTasks");
+                });
+
+            modelBuilder.Entity("Classroom.Mvc.Entities.AppUser", b =>
+                {
+                    b.Navigation("UserCourses");
+                });
+
+            modelBuilder.Entity("Classroom.Mvc.Entities.Course", b =>
+                {
+                    b.Navigation("Tasks");
+
+                    b.Navigation("UserCourses");
                 });
 #pragma warning restore 612, 618
         }
