@@ -3,6 +3,7 @@ using System;
 using Classroom.Mvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Classroom.Mvc.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221121153515_Tasks_Optimized")]
+    partial class Tasks_Optimized
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
@@ -166,22 +168,22 @@ namespace Classroom.Mvc.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b3a3c522-4dcd-4d65-a2ce-dbf05b0230b0"),
-                            ConcurrencyStamp = "c35c3130-bfb1-45ce-99ec-753a26520764",
+                            Id = new Guid("65e40389-6b33-4fee-bbba-e35863f50051"),
+                            ConcurrencyStamp = "1a467379-8129-4cd1-99bd-09c6ef0c0f04",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("c0da25eb-a1af-450c-b952-1f7e498dd8aa"),
-                            ConcurrencyStamp = "5cd92d98-ed98-4479-beac-a846c00af12f",
+                            Id = new Guid("56f63e66-4bc7-496d-86eb-17194cd46789"),
+                            ConcurrencyStamp = "754d0770-11fd-4bf7-9119-48cc0ad80180",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = new Guid("4bcafac1-b5ad-46c4-a495-08b1ecfdcdd6"),
-                            ConcurrencyStamp = "593221e7-5496-46f3-a9d2-8393561e77ba",
+                            Id = new Guid("ca563ff0-ffc3-42c9-b177-855a5132a44c"),
+                            ConcurrencyStamp = "f0186f25-9cc7-4afe-8775-1001255f8f4a",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -222,38 +224,6 @@ namespace Classroom.Mvc.Data.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("Classroom.Mvc.Entities.TaskComment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar");
-
-                    b.Property<Guid?>("ParentId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("TaskId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.HasIndex("TaskId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TaskComments");
                 });
 
             modelBuilder.Entity("Classroom.Mvc.Entities.UserCourse", b =>
@@ -299,6 +269,30 @@ namespace Classroom.Mvc.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserTasks");
+                });
+
+            modelBuilder.Entity("Classroom.Mvc.Entities.UserTaskComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("UserTaskId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserTaskId");
+
+                    b.ToTable("UserTaskComments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -422,31 +416,6 @@ namespace Classroom.Mvc.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Classroom.Mvc.Entities.TaskComment", b =>
-                {
-                    b.HasOne("Classroom.Mvc.Entities.TaskComment", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
-
-                    b.HasOne("Classroom.Mvc.Entities.AppTask", "Task")
-                        .WithMany("Comments")
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Classroom.Mvc.Entities.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Parent");
-
-                    b.Navigation("Task");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Classroom.Mvc.Entities.UserCourse", b =>
                 {
                     b.HasOne("Classroom.Mvc.Entities.Course", "Course")
@@ -483,6 +452,25 @@ namespace Classroom.Mvc.Data.Migrations
                     b.Navigation("Task");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Classroom.Mvc.Entities.UserTaskComment", b =>
+                {
+                    b.HasOne("Classroom.Mvc.Entities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Classroom.Mvc.Entities.UserTask", "UserTask")
+                        .WithMany()
+                        .HasForeignKey("UserTaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("UserTask");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -538,8 +526,6 @@ namespace Classroom.Mvc.Data.Migrations
 
             modelBuilder.Entity("Classroom.Mvc.Entities.AppTask", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("UserTasks");
                 });
 
@@ -553,11 +539,6 @@ namespace Classroom.Mvc.Data.Migrations
                     b.Navigation("Tasks");
 
                     b.Navigation("UserCourses");
-                });
-
-            modelBuilder.Entity("Classroom.Mvc.Entities.TaskComment", b =>
-                {
-                    b.Navigation("Children");
                 });
 #pragma warning restore 612, 618
         }

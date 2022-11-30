@@ -6,7 +6,6 @@ public class AppTask
 {
     public Guid Id { get; set; }
     public Guid CourseId { get; set; }
-    public Guid TaskId { get; set; }
     public ETaskStatus Status { get; set; }
     public string? Description { get; set; }
     public string Title { get; set; }
@@ -16,4 +15,5 @@ public class AppTask
     public DateTime EndDate { get; set; }
 
     public virtual List<UserTask>? UserTasks { get; set; }
+    public virtual List<TaskComment>? Comments { get; set; }
 }

@@ -2,4 +2,4 @@
 
 namespace Classroom.Mvc.Repository;
 
-public interface IUserTaskCommentRepository : IGenericRepository<UserTaskComment> { }
+public interface IUserTaskCommentRepository : IGenericRepository<TaskComment> { }

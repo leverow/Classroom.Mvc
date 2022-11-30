@@ -10,7 +10,7 @@ public class AppDbContext : IdentityDbContext<AppUser, AppUserRole, Guid>
     public DbSet<UserCourse>? UserCourses { get; set; }
     public DbSet<AppTask>? Tasks { get; set; }
     public DbSet<UserTask>? UserTasks { get; set; }
-    public DbSet<UserTaskComment>? UserTaskComments { get; set; }
+    public DbSet<TaskComment>? TaskComments { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 

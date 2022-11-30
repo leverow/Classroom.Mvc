@@ -453,4 +453,25 @@
 .nav-item.leverow-nav-item {
   margin: 4px 0;
 }
+.media img {
+    width: 60px;
+    height: 60px;
+}
 
+.reply a {
+    text-decoration: none;
+}
+
+.banner-task {
+    height: 10rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    border-radius: 5px;
+    padding: 50px 40px;
+    color: white;
+    font-weight: 500;
+    font-size: 26px;
+}

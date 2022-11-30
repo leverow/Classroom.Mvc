@@ -80,14 +80,15 @@ public class AppTaskService : IAppTaskService
         }
     }
 
-    public async Task<Result<AppTask>> GetTaskByIdAsync(Guid courseId, Guid taskId)
+    public async Task<Result<Entities.AppTask>> GetTaskByIdAsync(Guid courseId, Guid taskId)
     {
         try
         {
             var existingAppTask = await _unitOfWork.Tasks.GetAll().FirstOrDefaultAsync(s => s.Id == taskId && s.CourseId == courseId);
-            if (existingAppTask is null) return new("Task with given id not found.");
+            if (existingAppTask is null)
+                return new("Task with given id not found.");
 
-            return new(true) { Data = existingAppTask.Adapt<Models.AppTask>() };
+            return new(true) { Data = existingAppTask };
         }
         catch (Exception exception)
         {
@@ -125,7 +126,7 @@ public class AppTaskService : IAppTaskService
         if (string.IsNullOrWhiteSpace(model.Title))
             return new("Title is invalid");
 
-        var existingAppTask = _unitOfWork.Tasks.GetAll().FirstOrDefault(t => t.Id == model.TaskId && t.CourseId == model.CourseId);
+        var existingAppTask = _unitOfWork.Tasks.GetAll().FirstOrDefault(t => t.Id == model.Id && t.CourseId == model.CourseId);
         if (existingAppTask is null)
             return new("Task not found.");
 

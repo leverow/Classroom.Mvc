@@ -39,6 +39,7 @@ public partial class CourseController
             ModelState.AddModelError(string.Empty, retrievedTaskResult.ErrorMessage ?? string.Empty);
             return View();
         }
+
         return View(retrievedTaskResult.Data);
     }
 

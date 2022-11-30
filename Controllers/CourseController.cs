@@ -1,4 +1,6 @@
-﻿using Classroom.Mvc.Models;
+﻿using Classroom.Mvc.Data;
+using Classroom.Mvc.Models;
+using Classroom.Mvc.Repository;
 using Classroom.Mvc.Services;
 using Classroom.Mvc.ViewModels;
 using Mapster;
@@ -16,17 +18,23 @@ public partial class CourseController : Controller
     private readonly ICourseService _courseService;
     private readonly UserManager<Entities.AppUser> _userManager;
     private readonly IAppTaskService _taskService;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly AppDbContext _context;
 
     public CourseController(
         ILogger<CourseController> logger,
         ICourseService courseService,
         UserManager<Entities.AppUser> userManager,
-        IAppTaskService appTaskService)
+        IAppTaskService appTaskService,
+        IUnitOfWork unitOfWork,
+        AppDbContext context)
     {
         _logger = logger;
         _courseService = courseService;
         _userManager = userManager;
         _taskService = appTaskService;
+        _unitOfWork = unitOfWork;
+        _context = context;
     }
 
     public IActionResult Create()

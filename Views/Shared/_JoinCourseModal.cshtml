@@ -21,7 +21,7 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form asp-action="JoinCourse" method="post">
+            <form asp-action="JoinCourse" asp-controller="Course" method="post">
                 <div class="modal-body">
                     @Html.ValidationSummary(true, string.Empty, new { Class = "text-danger" }, "span")
                     <h1 class="mb-2 text-center">🔑</h1>

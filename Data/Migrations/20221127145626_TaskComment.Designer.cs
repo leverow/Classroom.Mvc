@@ -3,6 +3,7 @@ using System;
 using Classroom.Mvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Classroom.Mvc.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221127145626_TaskComment")]
+    partial class TaskComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
@@ -166,22 +168,22 @@ namespace Classroom.Mvc.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b3a3c522-4dcd-4d65-a2ce-dbf05b0230b0"),
-                            ConcurrencyStamp = "c35c3130-bfb1-45ce-99ec-753a26520764",
+                            Id = new Guid("de63222e-8119-494f-8227-444dbcb48140"),
+                            ConcurrencyStamp = "1b2f4a96-b1c4-4a20-b50b-8e2f9943a85f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("c0da25eb-a1af-450c-b952-1f7e498dd8aa"),
-                            ConcurrencyStamp = "5cd92d98-ed98-4479-beac-a846c00af12f",
+                            Id = new Guid("12335256-f94d-4559-b7df-1a20294308da"),
+                            ConcurrencyStamp = "728cbcbf-ac03-46de-ba14-b07e418dbdad",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = new Guid("4bcafac1-b5ad-46c4-a495-08b1ecfdcdd6"),
-                            ConcurrencyStamp = "593221e7-5496-46f3-a9d2-8393561e77ba",
+                            Id = new Guid("65b40458-7c81-476e-b2e2-44a019455811"),
+                            ConcurrencyStamp = "6bda9fc8-c701-430c-8ad9-77370211be07",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -234,7 +236,7 @@ namespace Classroom.Mvc.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Message")
-                        .HasColumnType("nvarchar");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("TEXT");

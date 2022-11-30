@@ -1,0 +1,9 @@
+﻿@model CreateTaskCommentViewModel
+@using (Html.BeginForm("AddTaskComments", "Course", new { courseId = Model.CourseId, taskId = Model.TaskId }, FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="exampleInputPassword1"><h3>Vazifaga izoh jo'natish</h3></label>
+        <textarea asp-for="Message" class="form-control" id="exampleInputPassword1" aria-label="Izohingizni qoldiring..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Izoh jo'natish</button>
+}

@@ -1,8 +1,86 @@
-﻿@model AppTask
+﻿@model Classroom.Mvc.Entities.AppTask
 @{
-    ViewData["Title"] = Model.Title;
+	ViewData["Title"] = Model.Title;
+	var createTaskComment = new CreateTaskCommentViewModel()
+    {
+        CourseId = Model.CourseId,
+        TaskId = Model.Id
+    };
+
+	Random random = new Random();
+	string GetRandomBanner()
+		=>$"{@random.Next(1,4)}.jpg";
+
+	string CalculateCreateTime(DateTime dateTime)
+	{
+		if (dateTime == default)
+			return $"0 seconds ago";
+
+		var createdDate = DateTime.UtcNow.AddHours(5) - dateTime;
+
+		//1 hour 3600 second
+		if (createdDate.TotalSeconds > 86400)
+		{
+			return $"{Math.Truncate(createdDate.TotalSeconds / 86400)} kun oldin";
+		}
+		else if (createdDate.TotalSeconds > 3600)
+			return $"{Math.Truncate(createdDate.TotalHours)} soat oldin";
+		else if (createdDate.TotalSeconds > 60)
+			return $"{Math.Truncate(createdDate.TotalSeconds / 60)} daqiqa oldin";
+		else
+			return $"hozirgina";
+	}
+	void DisplayComments(Classroom.Mvc.Entities.TaskComment comment, bool hasParent = false)
+	{
+		if(comment.ParentId is null || hasParent)
+		{
+			<div class="media" style="margin-top:20px;">
+				<img class="mr-3 rounded-circle" alt="@comment.User?.UserName" src="@Url.Action("GetUserImage", "Account", new { name = comment.User?.UserName })" />
+				<div class="media-body">
+					<div class="row">
+						<div class="col-8 d-flex">
+						<h5>@(comment.UserId == Model.Course?.CreatedBy ? "👑" : string.Empty) @comment.User?.UserName</h5>
+						<span>- @CalculateCreateTime(comment.CreatedDate ?? DateTime.UtcNow)</span>
+						</div>
+											 
+						<div class="col-4">
+							<div class="pull-right reply">
+								<a href="#"><span><i class="fa fa-reply"></i> reply</span></a>
+							</div>
+						</div>
+					</div>		
+											
+					@comment.Message
+                    
+					@if(comment.Children?.Count != 0)
+					{
+						foreach(var child in comment.Children!)
+						{
+							DisplayComments(child,true);
+						}
+					}					
+				</div>
+			</div>
+		}
+	}
 }
 <div class="row">
-    @Model.Title<br />
-    @Model.Description
+<div class="banner-task" style="background-image: url('/images/leverow/@GetRandomBanner()')">
+@Model.Title<br />
+<p style="font-size:12px;"><i class="fa fa-clock-o" aria-hidden="true" style="font-size: 14px;"></i> @Model.CreatedDate</p>
 </div>
+    
+<p style="margin-top:15px;">@Model.Description</p>
+</div>
+    <partial name="_AddTaskComment" model="createTaskComment"/>
+    @if(Model.Comments?.Count == 0)
+    {
+        <p>No comments...</p>
+    }
+    else
+    {
+        foreach(var comment in Model.Comments!)
+        {
+			DisplayComments(comment);
+        }
+    }
